@@ -6,22 +6,26 @@
     <form class="registration-form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label class="form-label">Username</label>
-        <input type="text" class="form-input" placeholder="Enter your username" />
+        <input type="text" class="form-input" formControlName="username" placeholder="Enter your name" 
+        [class.error]="registrationForm.get('username')?.touched && registrationForm.get('username')?.invalid"/>
       </div>
 
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="Enter your email" />
+        <input type="email" class="form-input" formControlName="email" placeholder="Enter your email" 
+        [class.error]="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid"/>
       </div>
 
       <div class="form-group">
         <label class="form-label">Password</label>
-        <input type="password" class="form-input" placeholder="Enter your password" />
+        <input type="password" class="form-input" formControlName="password" placeholder="Enter your password" 
+        [class.error]="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid"/>
       </div>
 
       <div class="form-group">
         <label class="form-label">Confirm Password</label>
-        <input type="password" class="form-input" placeholder="Confirm your password" />
+        <input type="password" class="form-input" formControlName="confirmPassword" placeholder="Confirm your password" 
+        [class.error]="registrationForm.get('confirmPassword')?.touched && registrationForm.get('confirmPassword')?.invalid"/>
       </div>
 
       <button class="btn btn-register" type="submit">Create Account</button>

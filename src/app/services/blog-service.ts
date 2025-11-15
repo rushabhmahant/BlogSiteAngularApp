@@ -36,8 +36,12 @@ export class BlogService {
     return this.http.get<Blog>(`${this.apiUrl}/${id}`);
   }
 
-  createBlog(blog: Partial<Blog>): Observable<Blog> {
-    return this.http.post<Blog>(this.apiUrl, blog, this.getHttpOptions());
+  getBlogsByUserId(userId: number): Observable<Blog[]> {
+    return this.http.get<Blog[]>(`${this.apiUrl}/blog/user/${userId}`);
+  }
+
+  createBlog(blog: Blog, userId: number): Observable<Blog> {
+    return this.http.post<Blog>(`${this.apiUrl}/user/blog/add/${userId}`, blog, this.getHttpOptions());
   }
 
   updateBlog(id: number, blog: Partial<Blog>): Observable<Blog> {
@@ -45,7 +49,7 @@ export class BlogService {
   }
 
   deleteBlog(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/blog/${id}`);
   }
   
 }

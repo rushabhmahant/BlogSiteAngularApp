@@ -18,7 +18,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) {}
 
   registerUser(newUser: User): Observable<User> {
-    return this.httpClient.post<User>(`${this.apiUrl}/register`, newUser)
+    return this.httpClient.post<User>(`${this.apiUrl}/user/register`, newUser)
   }
 
   loginUser(user: User): Observable<User> {
