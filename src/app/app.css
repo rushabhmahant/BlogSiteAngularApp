@@ -1,0 +1,101 @@
+/* General Page Layout */
+.main-container {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Header / Navbar */
+.header {
+  background: #1e293b;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-login {
+  background: #3b82f6;
+  margin-right: 10px;
+}
+
+.btn-register {
+  background: #10b981;
+}
+
+.btn-explore {
+  padding: 12px 24px;
+  font-size: 16px;
+  background: #6366f1;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 30px;
+}
+
+.hero-title {
+  font-size: 40px;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  font-size: 18px;
+  color: #475569;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Info Cards Section */
+.info-section {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
+.info-card {
+  background: white;
+  width: 280px;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
+}
+
+.info-card h3 {
+  color: #1e293b;
+}
+
+.info-card p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Footer */
+.footer {
+  background: #1e293b;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}

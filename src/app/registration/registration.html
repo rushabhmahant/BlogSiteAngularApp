@@ -1,0 +1,34 @@
+<div class="registration-container">
+  <div class="registration-card">
+    <h2 class="registration-title">Create Account</h2>
+    <p class="registration-subtitle">Join our blogging community today</p>
+
+    <form class="registration-form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-input" placeholder="Enter your username" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="Enter your email" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="Enter your password" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-input" placeholder="Confirm your password" />
+      </div>
+
+      <button class="btn btn-register" type="submit">Create Account</button>
+    </form>
+
+    <div class="registration-footer">
+      <p>Already have an account? <a href="/login" class="login-link">Sign In</a></p>
+    </div>
+  </div>
+</div>
