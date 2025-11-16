@@ -43,7 +43,7 @@ export class Login {
       this.userService.loginUser(user).subscribe(
         data => {
           console.log("User successfully logged in.");
-          this.router.navigate(['/blog-list']);
+          this.router.navigate(['/blog-list', data.userId]);
         },
         error => {
           console.log("Error ocurred while login: ");

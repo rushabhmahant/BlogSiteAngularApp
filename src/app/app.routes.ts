@@ -7,7 +7,7 @@ import { BlogList } from './blog-list/blog-list';
 export const routes: Routes = [
     { path: 'register', component: Registration },
     { path: 'login', component: Login },
-    { path: 'blog-list', component: BlogList },
+    { path: 'blog-list/:userId', component: BlogList },
     { path: '', component: Home },
     { path: '**', redirectTo: '' }
 ];
