@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 export interface Blog {
-  blogId: number;
+  blogId: string;
   blogName: string;
   blogCategory: string;
   blogArticle: string;
   blogAuthorName: string;
-  createdDate: Date;
+  blogCreationTime: string;
 }
 
 @Injectable({
@@ -32,8 +32,8 @@ export class BlogService {
     return this.http.get<Blog[]>(this.apiUrl);
   }
 
-  getBlogById(id: number): Observable<Blog> {
-    return this.http.get<Blog>(`${this.apiUrl}/${id}`);
+  getBlogById(id: string): Observable<Blog> {
+    return this.http.get<Blog>(`${this.apiUrl}/blog/${id}`);
   }
 
   getBlogsByUserId(userId: number): Observable<Blog[]> {
@@ -48,7 +48,7 @@ export class BlogService {
     return this.http.put<Blog>(`${this.apiUrl}/${id}`, blog, this.getHttpOptions());
   }
 
-  deleteBlog(id: number): Observable<void> {
+  deleteBlog(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/blog/${id}`);
   }
   

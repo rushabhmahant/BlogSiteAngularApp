@@ -1,0 +1,73 @@
+<div class="create-blog-container">
+  <div class="create-blog-card">
+    <h2 class="create-blog-title">Create New Blog</h2>
+    <p class="create-blog-subtitle">Share your thoughts and ideas with the world</p>
+
+    <form class="create-blog-form" [formGroup]="blogForm" (ngSubmit)="createBlog()">
+      <div class="form-group">
+        <label class="form-label">Blog Title</label>
+        <input 
+          type="text" 
+          class="form-input" 
+          formControlName="title" 
+          placeholder="Enter blog title" 
+          [class.error]="blogForm.get('title')?.touched && blogForm.get('title')?.invalid"/>
+        <div 
+          *ngIf="blogForm.get('title')?.touched && blogForm.get('title')?.invalid" 
+          class="error-message">
+          Blog title is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <input 
+          type="text" 
+          class="form-input" 
+          formControlName="category" 
+          placeholder="Enter blog category (e.g., Technology, Lifestyle)" 
+          [class.error]="blogForm.get('category')?.touched && blogForm.get('category')?.invalid"/>
+        <div 
+          *ngIf="blogForm.get('category')?.touched && blogForm.get('category')?.invalid" 
+          class="error-message">
+          Blog category is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Author Name</label>
+        <input 
+          type="text" 
+          class="form-input" 
+          formControlName="author" 
+          placeholder="Enter author name" 
+          [class.error]="blogForm.get('author')?.touched && blogForm.get('author')?.invalid"/>
+        <div 
+          *ngIf="blogForm.get('author')?.touched && blogForm.get('author')?.invalid" 
+          class="error-message">
+          Author name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Blog Article</label>
+        <textarea 
+          class="form-textarea" 
+          formControlName="article" 
+          placeholder="Write your blog article here..." 
+          rows="10"
+          [class.error]="blogForm.get('article')?.touched && blogForm.get('article')?.invalid"></textarea>
+        <div 
+          *ngIf="blogForm.get('article')?.touched && blogForm.get('article')?.invalid" 
+          class="error-message">
+          Blog article is required
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-cancel" type="button" (click)="cancelBlog()">Cancel</button>
+        <button class="btn btn-submit" type="submit" [disabled]="blogForm.invalid">Publish Blog</button>
+      </div>
+    </form>
+  </div>
+</div>

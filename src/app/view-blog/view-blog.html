@@ -1,0 +1,91 @@
+<div class="view-blog-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="loading-container">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading blog...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage && !isLoading()" class="error-container">
+    <div class="error-card">
+      <span class="error-icon">⚠</span>
+      <p class="error-text">{{ errorMessage }}</p>
+      <button class="btn btn-retry" (click)="loadBlog()">Retry</button>
+      <button class="btn btn-back" (click)="goBack()">Go Back</button>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <div *ngIf="!isLoading() && !errorMessage && blog" class="blog-content">
+    <!-- Blog Header -->
+    <div class="blog-header">
+      <button class="btn btn-back-nav" (click)="goBack()">
+        <span class="btn-icon">←</span> Back to Blogs
+      </button>
+
+      <!-- <div class="blog-actions-header">
+        <button class="btn btn-edit" (click)="editBlog()">
+          <span class="btn-icon">✏️</span> Edit
+        </button>
+        <button class="btn btn-delete" (click)="deleteBlog()">
+          <span class="btn-icon">🗑</span> Delete
+        </button>
+      </div> -->
+    </div>
+
+    <!-- Blog Article Card -->
+    <article class="blog-article">
+      <!-- Category Badge -->
+      <div class="blog-category-badge">
+        <span class="category-icon">📁</span>
+        {{ blog.blogCategory }}
+      </div>
+
+      <!-- Blog Title -->
+      <h1 class="blog-title">{{ blog.blogName }}</h1>
+
+      <!-- Blog Meta Information -->
+      <div class="blog-meta">
+        <div class="meta-item">
+          <span class="meta-icon">👤</span>
+          <span class="meta-text">{{ blog.blogAuthorName }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">📅</span>
+          <span class="meta-text">{{ blog.blogCreationTime | date: 'dd MMM yyyy HH:mm' }}</span>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Blog Content -->
+      <div class="blog-body">
+        <p class="blog-text">{{ blog.blogArticle }}</p>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Share Section -->
+      <div class="share-section">
+        <h3 class="share-title">Share this blog</h3>
+        <div class="share-buttons">
+          <button class="btn btn-share btn-twitter" (click)="shareOnTwitter()">
+            <span class="btn-icon">🐦</span> Twitter
+          </button>
+          <button class="btn btn-share btn-facebook" (click)="shareOnFacebook()">
+            <span class="btn-icon">📘</span> Facebook
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Blog Footer Actions -->
+    <div class="blog-footer-actions">
+      <button class="btn btn-back-footer" (click)="goBack()">
+        <span class="btn-icon">←</span> Back to All Blogs
+      </button>
+    </div>
+  </div>
+</div>

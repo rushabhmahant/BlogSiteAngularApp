@@ -41,7 +41,7 @@
       <!-- Blog Header -->
       <div class="blog-card-header">
         <span class="blog-category">{{ blog.blogCategory }}</span>
-        <span class="blog-date">{{ formatDate(blog.createdDate) }}</span>
+        <span class="blog-date">{{ blog.blogCreationTime | date: 'dd MMM yyyy HH:mm' }}</span>
       </div>
 
       <!-- Blog Content -->

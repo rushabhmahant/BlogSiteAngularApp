@@ -76,21 +76,20 @@ export class BlogList implements OnInit {
     
   }
 
-  viewBlog(blogId: number): void {
+  viewBlog(blogId: string): void {
     console.log('Viewing blog:', blogId);
     // Navigate to blog detail page
-    // this.router.navigate(['/blog', blogId]);
-    alert(`View blog functionality - Blog ID: ${blogId}`);
+    this.router.navigate(['/view-blog', this.userId, blogId]);
   }
 
-  deleteBlog(blogId: number): void {
+  deleteBlog(blogId: string): void {
     if (confirm('Are you sure you want to delete this blog?')) {
       this.blogService.deleteBlog(blogId).subscribe({
         next: () => {
           console.log('Blog deleted successfully');
-          alert('Blog deleted successfully!');
           // Reload blogs after deletion
           this.loadBlogs();
+          alert('Blog deleted successfully!');
         },
         error: (error) => {
           console.error('Error deleting blog:', error);
@@ -102,8 +101,7 @@ export class BlogList implements OnInit {
 
   createNewBlog(): void {
     // Navigate to create blog page
-    // this.router.navigate(['/blog/create']);
-    alert('Create new blog functionality - To be implemented');
+    this.router.navigate(['/create-blog', this.userId]);
   }
 
   formatDate(date: Date): string {
