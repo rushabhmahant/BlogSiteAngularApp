@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, signal, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,30 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('BlogSiteAngularApp');
+  isUserLoggedIn = signal(false);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    // Check initial login state
+    this.isUserLoggedIn.set(!!localStorage.getItem('userId'));
+
+    // Listen to navigation events (including back/forward button)
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      // Use setTimeout to ensure child component's ngOnInit runs first
+      setTimeout(() => {
+        this.isUserLoggedIn.set(!!localStorage.getItem('userId'));
+        this.cdr.detectChanges();
+      }, 0);
+    });
+  }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('userId');
+    return this.isUserLoggedIn();
   }
 
   goToRegisterPage(){

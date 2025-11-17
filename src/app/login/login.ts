@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService, User } from '../services/user-service';
 import { Router, RouterOutlet } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router, RouterOutlet } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
 
   loginForm: FormGroup;
 
@@ -24,6 +24,11 @@ export class Login {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+  }
+
+  ngOnInit(): void {
+    // Clear login state when login page loads
+    localStorage.removeItem('userId');
   }
 
   onSubmit() {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService, User } from '../services/user-service';
 import { Router, RouterOutlet } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router, RouterOutlet } from '@angular/router';
   templateUrl: './registration.html',
   styleUrl: './registration.css',
 })
-export class Registration {
+export class Registration implements OnInit {
 
   registrationForm: FormGroup;
 
@@ -32,6 +32,11 @@ export class Registration {
         Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
       ]]
     });
+  }
+
+  ngOnInit(): void {
+    // Clear login state when registration page loads
+    localStorage.removeItem('userId');
   }
 
   onSubmit() {

@@ -34,6 +34,14 @@ export class CreateBlog implements OnInit {
   }
 
   ngOnInit(): void {
+      // Check if user is logged in
+      const storedUserId = localStorage.getItem('userId');
+      if (!storedUserId) {
+        // Redirect to login if not authenticated
+        this.router.navigate(['/login']);
+        return;
+      }
+
       // Get userId from route parameters
       this.activatedRoute.paramMap.subscribe(params => {
         const userIdParam = params.get('userId');
@@ -41,8 +49,10 @@ export class CreateBlog implements OnInit {
         console.log('userId param:', userIdParam);
         if (userIdParam) {
           this.userId = Number(userIdParam);
-          console.log('Parsed userId:', this.userId);
+        } else {
+          this.userId = Number(storedUserId);
         }
+        console.log('Parsed userId:', this.userId);
       });
     }
 

@@ -20,6 +20,14 @@ export class BlogList implements OnInit {
     private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // Check if user is logged in
+    const storedUserId = localStorage.getItem('userId');
+    if (!storedUserId) {
+      // Redirect to login if not authenticated
+      this.router.navigate(['/login']);
+      return;
+    }
+
     // Get userId from route parameters
     this.activatedRoute.paramMap.subscribe(params => {
       const userIdParam = params.get('userId');
@@ -31,16 +39,10 @@ export class BlogList implements OnInit {
         console.log('Parsed userId:', this.userId);
         this.loadBlogs();
       } else {
-        // If no userId in route, try to get from localStorage or use default
-        const storedUserId = localStorage.getItem('userId');
-        if (storedUserId) {
-          this.userId = Number(storedUserId);
-          console.log('Using stored userId:', this.userId);
-          this.loadBlogs();
-        } else {
-          this.errorMessage = 'User ID not found. Please log in again.';
-          this.isLoading.set(false);
-        }
+        // Use stored userId
+        this.userId = Number(storedUserId);
+        console.log('Using stored userId:', this.userId);
+        this.loadBlogs();
       }
     });
   }

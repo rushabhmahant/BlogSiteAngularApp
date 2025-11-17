@@ -24,6 +24,14 @@ export class ViewBlog implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Check if user is logged in
+    const storedUserId = localStorage.getItem('userId');
+    if (!storedUserId) {
+      // Redirect to login if not authenticated
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.activatedRoute.paramMap.subscribe(params => {
       const blogIdParam = params.get('blogId');
       const userIdParam = params.get('userId');
@@ -34,6 +42,10 @@ export class ViewBlog implements OnInit {
         this.blogId = blogIdParam;
         console.log('Parsed blogId:', this.blogId);
         this.userId = userIdParam;
+        this.loadBlog();
+      } else if (blogIdParam) {
+        this.blogId = blogIdParam;
+        this.userId = storedUserId;
         this.loadBlog();
       } else {
         this.errorMessage = 'Blog ID not found';
