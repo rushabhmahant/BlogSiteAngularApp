@@ -2,19 +2,22 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService, Blog } from '../services/blog-service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-blog-list',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './blog-list.html',
   styleUrl: './blog-list.css',
 })
 export class BlogList implements OnInit {
 
   blogs: Blog[] = [];
+  filteredBlogs: Blog[] = [];
   isLoading = signal(true);
   errorMessage: string = '';
   userId: number = 0;
+  searchQuery: string = '';
 
   constructor(private blogService: BlogService,
     private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -62,6 +65,7 @@ export class BlogList implements OnInit {
     this.blogService.getBlogsByUserId(this.userId).subscribe({
       next: (data) => {
         this.blogs = data;
+        this.filteredBlogs = data;
         this.isLoading.set(false);
         console.log('Blogs loaded successfully:', data);
         console.log('Number of blogs:', data.length);
@@ -74,8 +78,19 @@ export class BlogList implements OnInit {
         console.error('Error message:', error.message);
       }
     });
+  }
 
-    
+  filterBlogs(): void {
+    if (!this.searchQuery || this.searchQuery.trim() === '') {
+      // No filter applied when search is empty
+      this.filteredBlogs = this.blogs;
+    } else {
+      // Filter blogs by category (case-insensitive)
+      const query = this.searchQuery.toLowerCase().trim();
+      this.filteredBlogs = this.blogs.filter(blog => 
+        blog.blogCategory.toLowerCase().includes(query)
+      );
+    }
   }
 
   viewBlog(blogId: string): void {

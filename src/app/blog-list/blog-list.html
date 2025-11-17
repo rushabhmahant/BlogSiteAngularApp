@@ -10,6 +10,23 @@
     </button>
   </div>
 
+  <!-- Search Bar -->
+  <div *ngIf="!isLoading() && !errorMessage && blogs.length > 0" class="search-container">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        class="search-input" 
+        [(ngModel)]="searchQuery"
+        (input)="filterBlogs()"
+        placeholder="Search by category..." />
+      <span *ngIf="searchQuery" class="clear-icon" (click)="searchQuery = ''; filterBlogs()">✕</span>
+    </div>
+    <p class="search-results-text" *ngIf="searchQuery">
+      Found {{ filteredBlogs.length }} blog{{ filteredBlogs.length !== 1 ? 's' : '' }} matching "{{ searchQuery }}"
+    </p>
+  </div>
+
   <!-- Loading State -->
   <div *ngIf="isLoading()" class="loading-container">
     <div class="spinner"></div>
@@ -35,9 +52,19 @@
     </button>
   </div>
 
+  <!-- No Results State -->
+  <div *ngIf="!isLoading() && !errorMessage && blogs.length > 0 && filteredBlogs.length === 0" class="empty-state">
+    <div class="empty-icon">🔍</div>
+    <h2 class="empty-title">No Blogs Found</h2>
+    <p class="empty-text">No blogs match the category "{{ searchQuery }}"</p>
+    <button class="btn btn-create-large" (click)="searchQuery = ''; filterBlogs()">
+      Clear Search
+    </button>
+  </div>
+
   <!-- Blog Cards Grid -->
-  <div *ngIf="!isLoading() && !errorMessage && blogs.length > 0" class="blogs-grid">
-    <div class="blog-card" *ngFor="let blog of blogs">
+  <div *ngIf="!isLoading() && !errorMessage && filteredBlogs.length > 0" class="blogs-grid">
+    <div class="blog-card" *ngFor="let blog of filteredBlogs">
       <!-- Blog Header -->
       <div class="blog-card-header">
         <span class="blog-category">{{ blog.blogCategory }}</span>
@@ -69,7 +96,7 @@
   </div>
 
   <!-- Blog Count -->
-  <div *ngIf="!isLoading() && blogs.length > 0" class="blog-count">
-    <p>Showing {{ blogs.length }} blog{{ blogs.length !== 1 ? 's' : '' }}</p>
+  <div *ngIf="!isLoading() && filteredBlogs.length > 0" class="blog-count">
+    <p>Showing {{ filteredBlogs.length }} of {{ blogs.length }} blog{{ blogs.length !== 1 ? 's' : '' }}</p>
   </div>
 </div>

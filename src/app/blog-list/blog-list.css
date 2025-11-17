@@ -364,3 +364,71 @@
 .blog-card {
   animation: fadeIn 0.5s ease-out;
 }
+
+/* Search Container */
+.search-container {
+  margin-bottom: 30px;
+}
+
+.search-wrapper {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 48px 14px 48px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #1f2937;
+  background: white;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.clear-icon:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.search-results-text {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
