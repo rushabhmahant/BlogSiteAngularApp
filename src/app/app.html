@@ -5,8 +5,17 @@
     <div class="header-title" (click)="goToHomePage()" style="cursor: pointer;">BlogSite</div>
 
     <div>
-      <button class="btn btn-login"(click)="goToLoginPage()">Login</button>
-      <button class="btn btn-register" (click)="goToRegisterPage()">Register</button>
+      <!-- Show Login and Register buttons when NOT logged in -->
+      <ng-container *ngIf="!isLoggedIn()">
+        <button class="btn btn-login" (click)="goToLoginPage()">Login</button>
+        <button class="btn btn-register" (click)="goToRegisterPage()">Register</button>
+      </ng-container>
+
+      <!-- Show My Blogs and Logout buttons when logged in -->
+      <ng-container *ngIf="isLoggedIn()">
+        <button class="btn btn-my-blogs" (click)="goToBlogList()">My Blogs</button>
+        <button class="btn btn-logout" (click)="logout()">Logout</button>
+      </ng-container>
     </div>
   </header>
 

@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -12,25 +13,34 @@ export class App {
 
   constructor(private router: Router) {}
 
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('userId');
+  }
 
   goToRegisterPage(){
-    // this.showLoginButton = true;
-    // this.showSignupButton = true;
-    // this.showLogoutButton = false;
-    // this.logout()
     this.router.navigate(['register']);
   }
 
   goToLoginPage(){
-    // this.showLoginButton = true;
-    // this.showSignupButton = true;
-    // this.showLogoutButton = false;
-    // this.logout()
     this.router.navigate(['login']);
   }
 
   goToHomePage(){
     this.router.navigate(['home']);
+  }
+
+  goToBlogList(): void {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.router.navigate(['/blog-list', userId]);
+    }
+  }
+
+  logout(): void {
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('userId');
+      this.router.navigate(['/login']);
+    }
   }
 
 }

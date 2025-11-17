@@ -40,6 +40,23 @@
   background: #10b981;
 }
 
+.btn-my-blogs {
+  background: #8b5cf6;
+  margin-right: 10px;
+}
+
+.btn-my-blogs:hover {
+  background: #7c3aed;
+}
+
+.btn-logout {
+  background: #ef4444;
+}
+
+.btn-logout:hover {
+  background: #dc2626;
+}
+
 .btn-explore {
   padding: 12px 24px;
   font-size: 16px;

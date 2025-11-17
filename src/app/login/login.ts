@@ -43,6 +43,8 @@ export class Login {
       this.userService.loginUser(user).subscribe(
         data => {
           console.log("User successfully logged in.");
+          // Store userId in localStorage
+          localStorage.setItem('userId', data.userId);
           this.router.navigate(['/blog-list', data.userId]);
         },
         error => {
