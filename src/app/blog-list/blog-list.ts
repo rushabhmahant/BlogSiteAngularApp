@@ -18,6 +18,8 @@ export class BlogList implements OnInit {
   errorMessage: string = '';
   userId: number = 0;
   searchQuery: string = '';
+  fromDate: string = '';
+  toDate: string = '';
 
   constructor(private blogService: BlogService,
     private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -81,16 +83,42 @@ export class BlogList implements OnInit {
   }
 
   filterBlogs(): void {
-    if (!this.searchQuery || this.searchQuery.trim() === '') {
-      // No filter applied when search is empty
-      this.filteredBlogs = this.blogs;
-    } else {
-      // Filter blogs by category (case-insensitive)
+    let result = [...this.blogs];
+
+    // Filter by category if search query exists
+    if (this.searchQuery && this.searchQuery.trim() !== '') {
       const query = this.searchQuery.toLowerCase().trim();
-      this.filteredBlogs = this.blogs.filter(blog => 
+      result = result.filter(blog => 
         blog.blogCategory.toLowerCase().includes(query)
       );
     }
+
+    // Filter by date range if dates are provided
+    if (this.fromDate || this.toDate) {
+      result = result.filter(blog => {
+        const blogDate = new Date(blog.blogCreationTime);
+        blogDate.setHours(0, 0, 0, 0); // Reset time for date-only comparison
+
+        let matchesFromDate = true;
+        let matchesToDate = true;
+
+        if (this.fromDate) {
+          const fromDateTime = new Date(this.fromDate);
+          fromDateTime.setHours(0, 0, 0, 0);
+          matchesFromDate = blogDate >= fromDateTime;
+        }
+
+        if (this.toDate) {
+          const toDateTime = new Date(this.toDate);
+          toDateTime.setHours(23, 59, 59, 999); // End of day
+          matchesToDate = blogDate <= toDateTime;
+        }
+
+        return matchesFromDate && matchesToDate;
+      });
+    }
+
+    this.filteredBlogs = result;
   }
 
   viewBlog(blogId: string): void {
@@ -134,6 +162,18 @@ export class BlogList implements OnInit {
       return text;
     }
     return text.substring(0, maxLength) + '...';
+  }
+
+  clearDateFilter(): void {
+    this.fromDate = '';
+    this.toDate = '';
+    this.filterBlogs();
+  }
+
+  hasActiveFilters(): boolean {
+    return (this.searchQuery && this.searchQuery.trim() !== '') || 
+           this.fromDate !== '' || 
+           this.toDate !== '';
   }
 
 }
