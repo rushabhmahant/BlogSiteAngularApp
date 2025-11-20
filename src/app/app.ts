@@ -57,7 +57,7 @@ export class App implements OnInit {
   logout(): void {
     if (confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('userId');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     }
   }
 
