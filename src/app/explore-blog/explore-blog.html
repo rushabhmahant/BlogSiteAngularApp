@@ -1,0 +1,80 @@
+<div class="explore-blog-container">
+  <!-- Header Section -->
+  <div class="explore-blog-header">
+    <div class="header-content">
+      <h1 class="page-title">Explore Articles</h1>
+      <p class="page-subtitle">Discover amazing stories from writers around the world</p>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="loading-container">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading articles...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading() && blogs.length === 0" class="empty-state">
+    <div class="empty-icon">📚</div>
+    <h2 class="empty-title">No Articles Yet</h2>
+    <p class="empty-text">Check back later for new content!</p>
+  </div>
+
+  <!-- Blog Cards Grid -->
+  <div *ngIf="!isLoading() && blogs.length > 0" class="blogs-grid">
+    <div class="blog-card" *ngFor="let blog of blogs">
+      <!-- Blog Header -->
+      <div class="blog-card-header">
+        <span class="blog-category">{{ blog.blogCategory }}</span>
+        <span class="blog-date">{{ blog.blogCreationTime | date: 'dd MMM yyyy' }}</span>
+      </div>
+
+      <!-- Blog Content -->
+      <div class="blog-card-body">
+        <h2 class="blog-title">{{ blog.blogName }}</h2>
+        <p class="blog-excerpt">{{ truncateText(blog.blogArticle) }}</p>
+      </div>
+
+      <!-- Blog Footer -->
+      <div class="blog-card-footer">
+        <div class="blog-author">
+          <span class="author-icon">👤</span>
+          <span class="author-name">{{ blog.blogAuthorName }}</span>
+        </div>
+        <div class="blog-actions">
+          <button class="btn btn-view" (click)="viewBlog(blog)">
+            <span class="btn-icon">👁</span> Read More
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Count -->
+  <div *ngIf="!isLoading() && blogs.length > 0" class="blog-count">
+    <p>Showing {{ blogs.length }} article{{ blogs.length !== 1 ? 's' : '' }}</p>
+  </div>
+</div>
+
+<!-- Blog Detail Modal -->
+<div *ngIf="selectedBlog" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-modal" (click)="closeModal()">✕</button>
+    
+    <div class="modal-header">
+      <span class="modal-category">{{ selectedBlog.blogCategory }}</span>
+      <span class="modal-date">{{ selectedBlog.blogCreationTime | date: 'dd MMM yyyy HH:mm' }}</span>
+    </div>
+    
+    <h1 class="modal-title">{{ selectedBlog.blogName }}</h1>
+    
+    <div class="modal-author">
+      <span class="author-icon">👤</span>
+      <span class="author-name">{{ selectedBlog.blogAuthorName }}</span>
+    </div>
+    
+    <div class="modal-body">
+      <p class="modal-article">{{ selectedBlog.blogArticle }}</p>
+    </div>
+  </div>
+</div>
